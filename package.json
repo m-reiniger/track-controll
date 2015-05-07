@@ -1,0 +1,16 @@
+{
+  "name": "track-controll",
+  "version": "1.0.0",
+  "description": "track controll for arduino and maerklin z",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Reiniger",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.12.3",
+    "johnny-five": "^0.8.71"
+  }
+}

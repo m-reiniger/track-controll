@@ -1,0 +1,13 @@
+{
+  "sbhf1": {
+    "left": 3,
+    "right": 4,
+    "default": "left"
+  },
+  "schattenbahhof2": {
+    "left": 5,
+    "right": 6,
+    "default": "left"
+  }
+}
+
