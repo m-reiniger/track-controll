@@ -4,10 +4,10 @@
     "right": 4,
     "default": "left"
   },
-  "schattenbahhof2": {
+  "sbhf2": {
     "left": 5,
     "right": 6,
-    "default": "left"
+    "default": "right"
   }
 }
 

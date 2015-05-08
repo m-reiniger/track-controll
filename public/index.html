@@ -1,12 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>track control</title>
+
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!--<link rel="stylesheet" href="css/bootstrap-theme.min.css">-->
+
 </head>
 <body>
 
-Track Controller
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="track" id="sbhf">
+            <img class="track-image" src="img/sbhf.png">
+            <div class="track-overlay">
+                <span id="sbhf-status">test</span>
+                <div class="switch" id="sbhf1">
+                    <img id="sbhf1-red-right" src="img/arrow_red.png" />
+                    <img id="sbhf1-red-left" src="img/arrow_red.png" />
+                    <img id="sbhf1-green-right" src="img/arrow_green.png" />
+                    <img id="sbhf1-green-left" src="img/arrow_green.png" />
+                </div>
+                <div class="switch" id="sbhf2">
+                    <img id="sbhf2-red-right" src="img/arrow_red.png" />
+                    <img id="sbhf2-red-left" src="img/arrow_red.png" />
+                    <img id="sbhf2-green-right" src="img/arrow_green.png" />
+                    <img id="sbhf2-green-left" src="img/arrow_green.png" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="application/javascript" src="js/socket.io.js"></script>
+<script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
+
+<script type="application/javascript" src="js/bootstrap.min.js"></script>
+
+<script type="application/javascript">
+
+    $(document).ready(function(){
+
+        var switches = [
+            "sbhf1", "sbhf2"
+        ];
+
+        var socket = io('http://localhost:3000');
+
+        init(socket, switches);
+
+        socket.on('stateChange', function(data){
+            if(data.state.code === "200"){
+                var $elem = $('#' + data.id);
+                if(data.state.message === "left"){
+                    $elem.find('#' + data.id + '-red-right').show();
+                    $elem.find('#' + data.id + '-red-left').hide();
+                    $elem.find('#' + data.id + '-green-right').hide();
+                    $elem.find('#' + data.id + '-green-left').show();
+                }
+                if(data.state.message === "right"){
+                    $elem.find('#' + data.id + '-red-right').hide();
+                    $elem.find('#' + data.id + '-red-left').show();
+                    $elem.find('#' + data.id + '-green-right').show();
+                    $elem.find('#' + data.id + '-green-left').hide();
+                }
+            }else{
+                $('#sbhf-status').text(data.id + ': ' + data.state.code + " - " + data.state.message);
+            }
+
+        });
+
+        $('div.switch').click(
+                function () {
+                    var id = $(this).attr('id');
+                    var data = {
+                        "id": id
+                    };
+                    socket.emit('toggleSwitch', data);
+                }
+        );
+
+
+        function init(socket, switches){
+            for (var i = 0, len = switches.length; i < len; i++) {
+                var data = {
+                    "id": switches[i]
+                };
+                socket.emit('getSwitchState', data);
+            }
+        }
+    });
+</script>
 
 </body>
 </html>
