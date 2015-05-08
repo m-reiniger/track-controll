@@ -58,22 +58,26 @@ $(document).ready(function(){
     $(function() {
         var dragging = 0;
         var target     = $('.speedcontrol');
-        var elOfs, cent, elPos, mainTarget;
+        var elOfs, cent, elPos, mainTarget, last;
+
         target.mousedown(function(e) {
             dragging = true;
             mainTarget = $(e.target);
             elOfs = mainTarget.offset();
             cent  = {X: mainTarget.width()/2, Y: mainTarget.height()/2};
             elPos = {X: elOfs.left, Y: elOfs.top};
+            last = mainTarget.attr('data-value');
         });
         $(document).mouseup(function() {
             dragging = 0;
         }).mousemove(function(e) {
             if(dragging) {
                 var mPos    = (e.pageX - elPos.X - cent.X)/2;
+                mPos += (last/2);
                 if(mPos < 135 && mPos > -135) {
                     mainTarget.css({transform: 'rotate(' + mPos + 'deg)'});
                     $(mainTarget.attr('data-meter')).text(Math.round(mPos));
+                    mainTarget.attr('data-value', mPos);
                 }
 
             }
@@ -85,6 +89,7 @@ $(document).ready(function(){
             elOfs = mainTarget.offset();
             cent  = {X: mainTarget.width()/2, Y: mainTarget.height()/2};
             elPos = {X: elOfs.left, Y: elOfs.top};
+            last = mainTarget.attr('data-value');
         });
         $(document).on('touchend', function() {
             dragging = 0;
@@ -92,16 +97,13 @@ $(document).ready(function(){
         $(document).on('touchmove', function(e) {
             if(dragging) {
                 var touches = e.originalEvent.changedTouches;
-
-                //alert(touches);
-                //alert(touches[-1].pageX);
-
-                var mPos    = (touches[0].pageX - elPos.X - cent.X);
+                var mPos = (touches[0].pageX - elPos.X - cent.X);
+                mPos += parseInt(last);
                 if(mPos < 135 && mPos > -135) {
                     mainTarget.css({transform: 'rotate(' + mPos + 'deg)'});
                     $(mainTarget.attr('data-meter')).text(Math.round(mPos));
+                    mainTarget.attr('data-value', mPos);
                 }
-
             }
         });
 

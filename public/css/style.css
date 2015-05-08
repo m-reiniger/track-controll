@@ -9,6 +9,13 @@ body {
     user-select: none;
 }
 
+.footer {
+    height: 200px;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+}
+
 
 div.track {
     width: 100%;
@@ -123,11 +130,11 @@ div.track div.track-overlay div.switch#sbhf2 img#sbhf2-green-left {
 }
 
 #maintrack{
-    left: 30%;
+    left: 15%;
 }
 
 #bergbhf{
-    left: 60%;
+    right: 15%;
 }
 
 .scale{
@@ -156,4 +163,24 @@ div.track div.track-overlay div.switch#sbhf2 img#sbhf2-green-left {
     margin-right: auto;
     width: 40px;
     text-align: center;
+}
+
+@media (max-width: 768px) {
+    .footer{
+        hight: 130px;
+    }
+    .speeder {
+        width: 100px;
+    }
+    .scale{
+        width: 100px;
+        height: 100px;
+    }
+
+    .speedcontrol {
+        left: 10px;
+        top: 10px;
+        width: 80px;
+        height: 80px;
+    }
 }
