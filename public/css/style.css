@@ -1,3 +1,15 @@
+body {
+    padding-top: 25px;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
 div.track {
     width: 100%;
     position: relative;
@@ -39,22 +51,26 @@ div.track div.track-overlay div.switch#sbhf1 img#sbhf1-red-right {
     display: none;
     position: absolute;
     transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
     top: 60%;
 }
 div.track div.track-overlay div.switch#sbhf1 img#sbhf1-red-left {
     position: absolute;
     transform: rotate(172deg);
+    -webkit-transform: rotate(172deg);
     top: 23%;
 }
 div.track div.track-overlay div.switch#sbhf1 img#sbhf1-green-right {
     position: absolute;
     transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
     top: 60%;
 }
 div.track div.track-overlay div.switch#sbhf1 img#sbhf1-green-left {
     display: none;
     position: absolute;
     transform: rotate(172deg);
+    -webkit-transform: rotate(172deg);
     top: 23%;
 }
 
@@ -70,21 +86,74 @@ div.track div.track-overlay div.switch#sbhf2 img#sbhf2-red-right {
     display: none;
     position: absolute;
     transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
     top: 23%;
 }
 div.track div.track-overlay div.switch#sbhf2 img#sbhf2-red-left {
     position: absolute;
     transform: rotate(350deg);
+    -webkit-transform: rotate(350deg);
     top: 65%;
 }
 div.track div.track-overlay div.switch#sbhf2 img#sbhf2-green-right {
     position: absolute;
     transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
     top: 23%;
 }
 div.track div.track-overlay div.switch#sbhf2 img#sbhf2-green-left {
     display: none;
     position: absolute;
     transform: rotate(350deg);
+    -webkit-transform: rotate(350deg);
     top: 65%;
+}
+
+
+/* speed controll*/
+
+.speeder-container {
+    position: relative;
+}
+
+.speeder {
+    position: absolute;
+    width: 170px;
+    top: 0px;
+}
+
+#maintrack{
+    left: 30%;
+}
+
+#bergbhf{
+    left: 60%;
+}
+
+.scale{
+    position: absolute;
+    top: 30px;
+    width: 170px;
+    height: 170px;
+    border: 0px solid red;
+    background-image: url(../img/scale.png);
+    background-size: 100% 100%;
+}
+
+.speedcontrol {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    width: 140px;
+    height: 140px;
+    border: 0px solid red;
+    background-image: url(../img/dail.png);
+    background-size: 100% 100%;
+}
+
+.speedmeter {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40px;
+    text-align: center;
 }

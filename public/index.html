@@ -17,91 +17,85 @@
 <body>
 
 
-<div class="container">
+<div class="container-fluid" role="tabpanel">
 
-    <div class="row">
+    <ul class="nav nav-tabs" role="tablist" id="navigation-tabs">
+        <li role="presentation" class="active">
+            <a href="#sbhftab" aria-controls="sbhftab" role="tab" data-toggle="tab">Schattenbahnhof</a>
+        </li>
+        <li role="presentation">
+            <a href="#uovaltab" aria-controls="uovaltab" role="tab" data-toggle="tab">Unteres Oval</a>
+        </li>
+        <li role="presentation">
+            <a href="#oovaltab" aria-controls="oovaltab" role="tab" data-toggle="tab">Oberes Oval</a>
+        </li>
+    </ul>
 
-        <div class="track" id="sbhf">
-            <img class="track-image" src="img/sbhf.png">
-            <div class="track-overlay">
-                <span id="sbhf-status">test</span>
-                <div class="switch" id="sbhf1">
-                    <img id="sbhf1-red-right" src="img/arrow_red.png" />
-                    <img id="sbhf1-red-left" src="img/arrow_red.png" />
-                    <img id="sbhf1-green-right" src="img/arrow_green.png" />
-                    <img id="sbhf1-green-left" src="img/arrow_green.png" />
+    <div class="tab-content">
+        <div class="tab-pane active" role="tabpanel" id="sbhftab">
+
+            <div class="track" id="sbhf">
+                <img class="track-image" src="img/sbhf.png">
+
+                <div class="track-overlay">
+                    <span id="sbhf-status"></span>
+
+                    <div class="switch" id="sbhf1">
+                        <img id="sbhf1-red-right" src="img/arrow_red.png"/>
+                        <img id="sbhf1-red-left" src="img/arrow_red.png"/>
+                        <img id="sbhf1-green-right" src="img/arrow_green.png"/>
+                        <img id="sbhf1-green-left" src="img/arrow_green.png"/>
+                    </div>
+                    <div class="switch" id="sbhf2">
+                        <img id="sbhf2-red-right" src="img/arrow_red.png"/>
+                        <img id="sbhf2-red-left" src="img/arrow_red.png"/>
+                        <img id="sbhf2-green-right" src="img/arrow_green.png"/>
+                        <img id="sbhf2-green-left" src="img/arrow_green.png"/>
+                    </div>
                 </div>
-                <div class="switch" id="sbhf2">
-                    <img id="sbhf2-red-right" src="img/arrow_red.png" />
-                    <img id="sbhf2-red-left" src="img/arrow_red.png" />
-                    <img id="sbhf2-green-right" src="img/arrow_green.png" />
-                    <img id="sbhf2-green-left" src="img/arrow_green.png" />
-                </div>
+            </div>
+
+        </div>
+
+        <div class="tab-pane" role="tabpanel" id="uovaltab">Unteres Oval</div>
+        <div class="tab-pane" role="tabpanel" id="oovaltab">Oberes Oval</div>
+
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="speeder-container">
+        <div class="speeder" id="maintrack">
+            <div class="speedmeter" id="speedmeter1">0</div>
+            <div class="scale" id="scale1">
+                <div class="speedcontrol" id="speedcontrol1" data-meter="#speedmeter1"></div>
             </div>
         </div>
 
+        <div class="speeder" id="bergbhf">
+            <div class="speedmeter" id="speedmeter2">0</div>
+            <div class="scale" id="scale2">
+                <div class="speedcontrol" id="speedcontrol2" data-meter="#speedmeter2"></div>
+            </div>
+        </div>
     </div>
 
 </div>
 
-<script type="application/javascript" src="js/socket.io.js"></script>
+
 <script type="application/javascript" src="js/jquery-2.1.4.min.js"></script>
 
+<script type="application/javascript" src="js/socket.io.js"></script>
+
 <script type="application/javascript" src="js/bootstrap.min.js"></script>
+<script type="application/javascript" src="js/tabs.min.js"></script>
 
-<script type="application/javascript">
+<script type="application/javascript" src="js/control.js"></script>
 
-    $(document).ready(function(){
-
-        var switches = [
-            "sbhf1", "sbhf2"
-        ];
-
-        var socket = io('http://localhost:3000');
-
-        init(socket, switches);
-
-        socket.on('stateChange', function(data){
-            if(data.state.code === "200"){
-                var $elem = $('#' + data.id);
-                if(data.state.message === "left"){
-                    $elem.find('#' + data.id + '-red-right').show();
-                    $elem.find('#' + data.id + '-red-left').hide();
-                    $elem.find('#' + data.id + '-green-right').hide();
-                    $elem.find('#' + data.id + '-green-left').show();
-                }
-                if(data.state.message === "right"){
-                    $elem.find('#' + data.id + '-red-right').hide();
-                    $elem.find('#' + data.id + '-red-left').show();
-                    $elem.find('#' + data.id + '-green-right').show();
-                    $elem.find('#' + data.id + '-green-left').hide();
-                }
-            }else{
-                $('#sbhf-status').text(data.id + ': ' + data.state.code + " - " + data.state.message);
-            }
-
-        });
-
-        $('div.switch').click(
-                function () {
-                    var id = $(this).attr('id');
-                    var data = {
-                        "id": id
-                    };
-                    socket.emit('toggleSwitch', data);
-                }
-        );
-
-
-        function init(socket, switches){
-            for (var i = 0, len = switches.length; i < len; i++) {
-                var data = {
-                    "id": switches[i]
-                };
-                socket.emit('getSwitchState', data);
-            }
-        }
-    });
+<script>
+    $(function () {
+        $('#navigation-tabs').tab();
+    })
 </script>
 
 </body>

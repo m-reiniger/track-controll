@@ -12,7 +12,7 @@ function BoardAdapter(){
 
 BoardAdapter.prototype.init = function(){
 
-    //switchAdapter.init();
+    switchAdapter.init();
     /*board.on("ready", function() {
         switchAdapter.init();
     });*/

@@ -25,6 +25,8 @@ server.listen(3000);
 io.on('connection', function (socket) {
     //socket.emit('news', { hello: 'world' });
 
+    console.log('got connection: ', socket.client.request.headers['user-agent']);
+
     socket.on('toggleSwitch', function (data) {
         switchController.toggleSwitchDirect(data.id, null, socket);
     });
